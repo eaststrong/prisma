@@ -1,0 +1,47 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+datasource db {
+//    provider = "mysql"
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    id         String  @db.Char(21)     @id
+    code       String  @db.VarChar(191) @unique
+    created_at String  @db.Char(19)
+    updated_at String  @db.Char(19)
+    deleted_at String? @db.Char(19)
+    name       String  @db.Text
+    note       String? @db.Text
+    d_id       String  @db.Char(21)
+    @@index([code])
+}
+
+model Department {
+    id         String  @db.Char(21)     @id
+    code       String  @db.VarChar(191) @unique
+    created_at String  @db.Char(19)
+    updated_at String  @db.Char(19)
+    deleted_at String? @db.Char(19)
+    name       String  @db.Text
+    note       String? @db.Text
+    p_id       String  @db.Char(21)
+    @@index([code])
+}
+
+model User_Department {
+    u_id String @db.Char(21)
+    d_id String @db.Char(21)
+    @@id([u_id, d_id])
+}
+
+model Department_Parent {
+    d_id String @db.Char(21)
+    p_id String @db.Char(21)
+    @@id([d_id, p_id])
+}
