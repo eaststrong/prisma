@@ -19,6 +19,7 @@ model User {
     name       String  @db.Text
     note       String? @db.Text
     d_id       String  @db.Char(21)
+    s_id       String? @db.Char(21)
     @@index([code])
 }
 
@@ -30,7 +31,8 @@ model Department {
     deleted_at String? @db.Char(19)
     name       String  @db.Text
     note       String? @db.Text
-    p_id       String  @db.Char(21)
+    u_id       String? @db.Char(21)
+    p_id       String? @db.Char(21)
     @@index([code])
 }
 
@@ -38,6 +40,12 @@ model User_Department {
     u_id String @db.Char(21)
     d_id String @db.Char(21)
     @@id([u_id, d_id])
+}
+
+model User_Supervisor {
+    u_id String @db.Char(21)
+    s_id String @db.Char(21)
+    @@id([u_id, s_id])
 }
 
 model Department_Parent {
